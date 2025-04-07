@@ -1,8 +1,7 @@
 import { Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { createIngredientCategory } from '../../component/State/Ingredients/Action';
-import { useDispatch, useSelector } from 'react-redux';
-import { name } from 'file-loader';
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const CreateIngredientCategoryForm = () => {
