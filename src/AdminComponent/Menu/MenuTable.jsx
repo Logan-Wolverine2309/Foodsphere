@@ -1,23 +1,33 @@
-import { Box, Card, CardHeader, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import React from 'react'
-import CreateIcon from '@mui/icons-material/Create';
 import { Delete } from '@mui/icons-material';
+import CreateIcon from '@mui/icons-material/Create';
+import { Avatar, Box, Card, CardHeader, Chip, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const orders=[{id: 1}, {id: 2}, {id: 3}];
  
 
 export default function MenuTable() {
+  const dispatch = useDispatch(); 
+  const jwt = localStorage.getItem("jwt");
+  const { restaurant, ingredients, menu } = useSelector(store=>store)
+ const navigate = useNavigate();
+   
+ useEffect(()=>{
+         dispatch(getMenuItemsByRestaurantId({jwt,
+          restaurantId:restaurant.usersRestaurant.id,
+             vegetarian:false,
+             nonveg:false,
+             seasonal:false,
+             foodCategory:"",
+         }));
+  }
+  ,[])
 
-  const navigate = useNavigate();
-   const [ open, setOpen] = React.useState(false);
-    const handleOpen = () =>{
-       setOpen(true);
-    };
-
-    const handleAddMenuClick = () => {
-      navigate("/admin/restaurants/add-menu");
-    };
+  const handleDeleteFood=(foodId)=>{
+    dispatch(deleteFoodAction({foodId,jwt}));
+  }
 
   return (
     <Box>
@@ -43,18 +53,21 @@ export default function MenuTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {orders.map((row) => (
+          {menu.menuItems.map((item) => (
             <TableRow
-              key={row.id}
+              key={item.id}
               sx={{ '&: td, &: th': { border: 8 } }}>
+
               <TableCell component="th" scope="row">
-                {1}
+              <Avatar src={item.images[0]}></Avatar>
               </TableCell>
-              <TableCell align="right">{"image"}</TableCell>
-              <TableCell align="right">{"Cheese"}</TableCell>
-              <TableCell align="right">{"$150"}</TableCell>
-              <TableCell align="right">{"Biryani"}</TableCell>
-              <TableCell align="right"><IconButton>
+              <TableCell align="right">{item.name}</TableCell>
+              <TableCell align="right">
+                {item.ingredients.map((ingredient)=><Chip label={ingredient.name}></Chip>)}</TableCell>
+              <TableCell align="right">₹{item.price}</TableCell>
+              <TableCell align="right">{item.available?"in_stock":"out_of_stock"}</TableCell>
+              <TableCell align="right">
+                <IconButton color='primary' onClick={()=>handleDeleteFood(item.id)}>
                 <Delete />
                 </IconButton>
                 </TableCell>

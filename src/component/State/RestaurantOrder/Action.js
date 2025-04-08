@@ -13,7 +13,7 @@ export const updateOrderStatus = ({ orderId, orderStatus, jwt }) => {
         try {
             dispatch({ type: UPDATE_ORDER_STATUS_REQUEST });
             const response = await api.put(
-                `/api/amin/orders/${orderId}`, 
+                `/api/amin/order/${orderId}`, 
                 { orderStatus }, 
                 {
                     headers: {

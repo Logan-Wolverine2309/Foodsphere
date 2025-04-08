@@ -13,6 +13,7 @@ const CreateIngredientCategoryForm = () => {
     });
     const handleSubmit = ( e ) => {
         e.preventDefault()
+        
         const data = {name:formData.name,restaurantId:restaurant.usersRestaurant.id}
 
         console.log(formData)
