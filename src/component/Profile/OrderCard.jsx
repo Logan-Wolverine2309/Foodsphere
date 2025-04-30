@@ -1,37 +1,22 @@
 import { Card,  CardContent, CardMedia,  Typography } from '@mui/material'
 
 import React from 'react'
-
-const OrderCard = () => {
-  return (
-    <div>
-      <Card sx={{ width: 345 }}>
-        <CardMedia
-          sx={{ height: 345 }}
-          image="https://cdn.pixabay.com/photo/2021/02/05/11/58/street-food-5984348_1280.jpg"
-          title="Food Truck Festival"
-        />
-        <CardContent>
-          <Typography variant="h5" className="text-blue-500">
-            Food Truck Festival
-          </Typography>
-          <Typography variant="body2" className="text-gray-400">
-            A gathering of various food trucks offering cuisines from all over the world, including Mexican, Italian, and local specialties. Enjoy live music and a casual outdoor dining experience.
-          </Typography>
-          <div className="py-2 space-y-2">
-            <p>Kolkata</p>
-            <p className="text-sm text-green-500">
-              Start Time: 11:00 AM
-            </p>
-            <p className="text-sm text-red-600">
-              End Time: 8:00 PM
-            </p>
-          </div>
-        </CardContent>
-        {/* CardActions section is hidden */}
-      </Card>
-    </div>
-  )
-}
+    const OrderCard = ({ order, item }) => {
+      return (
+        <div className="border p-4 rounded-lg shadow-md bg-white dark:bg-gray-900">
+          <h2 className="font-semibold text-lg mb-2">{item.name}</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-300">Quantity: {item.quantity}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-300">Price: ₹{item.price}</p>
+          <p className="text-sm text-blue-600 font-semibold mt-2">
+            Status: <span className={
+              order.status === "Pending" ? "text-yellow-500" :
+              order.status === "Cancelled" ? "text-red-500" :
+              "text-green-600"
+            }>{order.status}</span>
+          </p>
+        </div>
+      );
+    };
+    
 
 export default OrderCard;

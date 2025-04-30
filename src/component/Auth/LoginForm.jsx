@@ -90,10 +90,11 @@ export const LoginForm = () => {
               >
                 Login
               </Button>
+              
             </Form>
           </Formik>
 
-          <Typography variant="body2" align="center" sx={{ mt: 4 }}>
+          {/* <Typography variant="body2" align="center" sx={{ mt: 4 }}>
             Don't have an account?
             <Button
               size="small"
@@ -103,7 +104,7 @@ export const LoginForm = () => {
             >
               Register
             </Button>
-          </Typography>
+          </Typography> */}
         </div>
       </motion.div>
     </div>

@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import CartItem from "./CartItem";
-import { AddLocation } from "@mui/icons-material";
 import { Field, Form, Formik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { createOrder } from "../State/Order/Action";
@@ -36,16 +35,21 @@ const initialValues = {
 const Cart = () => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
-  const cart = useSelector((state) => state.cart); // ✅ fix useSelector root state issue
-  const auth = useSelector((state) => state.auth); // ✅ separate selector
+
+  // Add fallback to ensure cart is always an object
+  const cart = useSelector((state) => state.cart) || {};
+  const auth = useSelector((state) => state.auth) || {};
   const dispatch = useDispatch();
+
+  const cartItems = cart.cartItems || [];
+  const cartInfo = cart.cart || {};
 
   const handleProceedToPay = () => {
     navigate("/payment");
   };
 
   const createOrderUsingSelectedAddress = (address) => {
-    const restaurantId = cart.cartItems?.[0]?.food?.restaurant?.id;
+    const restaurantId = cartItems[0]?.food?.restaurant?.id;
     if (!restaurantId) {
       console.error("Restaurant ID not found");
       return;
@@ -66,7 +70,7 @@ const Cart = () => {
   const handleClose = () => setOpen(false);
 
   const handleSubmit = (value) => {
-    const restaurantId = cart.cartItems?.[0]?.food?.restaurant?.id;
+    const restaurantId = cartItems[0]?.food?.restaurant?.id;
     if (!restaurantId) {
       console.error("Restaurant ID not found");
       return;
@@ -77,7 +81,7 @@ const Cart = () => {
       order: {
         restaurantId,
         deliveryAddress: {
-          fullName: auth.user?.fullName,
+          fullName: auth.user?.fullName || "",
           streetAddress: value.streetAddress,
           city: value.city,
           state: value.state,
@@ -101,21 +105,23 @@ const Cart = () => {
             </h2>
           </div>
 
-          {cart.cartItems?.map((item) => (
-            <CartItem item={item} key={item.id} />
-          ))}
+          {cartItems.length > 0 ? (
+            cartItems.map((item) => (
+              <CartItem item={item} key={item.id} />
+            ))
+          ) : (
+            <p className="text-white text-center">Your cart is empty.</p>
+          )}
 
           <Divider />
 
           {/* Membership / Pass section */}
           <div className="bg-white p-4 rounded-lg shadow-lg ring-1 ring-pink-400/50 hover:shadow-pink-400 transition duration-300">
             <h3 className="text-purple-700 font-bold mb-2">
-              Renew <span className="bg-yellow-300 px-2 rounded">Pass</span> &
-              Save More
+              Renew <span className="bg-yellow-300 px-2 rounded">Pass</span> & Save More
             </h3>
             <p className="text-gray-600">
-              You saved ₹50 so far. That’s 50 times of what you’ve paid for
-              Pass.
+              You saved ₹50 so far. That’s 50 times of what you’ve paid for Pass.
             </p>
             <br />
             <Button
@@ -139,32 +145,32 @@ const Cart = () => {
           <div className="space-y-3 pt-5 text-white-600">
             <div className="flex justify-between">
               <span>Item Total</span>
-              <span>₹{cart.cart?.total || 0}</span>
+              <span>₹{cartInfo.total || 0}</span>
             </div>
             <div className="flex justify-between text-white-800">
               <span>Delivery Fee</span>
-              <span>₹{cart.cart?.deliveryFee || 0}</span>
+              <span>₹{cartInfo.deliveryFee || 0}</span>
             </div>
             <div className="flex justify-between text-white-800">
               <span>GST and Restaurant Charges</span>
-              <span>₹{cart.cart?.gstCharges || 0}</span>
+              <span>₹{cartInfo.gstCharges || 0}</span>
             </div>
             <Divider />
             <div className="flex justify-between font-bold text-white-800">
               <span>Total Pay</span>
-              <span>₹{cart.cart?.total || 0}</span>
+              <span>₹{cartInfo.total || 0}</span>
             </div>
           </div>
         </section>
 
         {/* Address Section */}
-        <section className="flex flex-col items-center space-y-6 p-5">
+        {/* <section className="flex flex-col items-center space-y-6 p-5">
           <h1 className="text-2xl font-bold text-center">
             Choose Delivery Address
           </h1>
 
           <div className="flex flex-col space-y-4 w-full max-w-2xl">
-            {/* Add New Address Card */}
+            
             <div
               onClick={handleOpenAddressModal}
               className="bg-black rounded-lg shadow-md p-4 flex justify-between items-center cursor-pointer hover:shadow-lg transition"
@@ -188,15 +194,15 @@ const Cart = () => {
               </Button>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Modal for Adding New Address */}
         <Modal open={open} onClose={handleClose}>
           <Box sx={style}>
             <Formik initialValues={initialValues} onSubmit={handleSubmit}>
               <Form>
-                <Grid container spacing={3} columns={12}>
-                  <Grid xs={12}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
                     <Field
                       as={TextField}
                       name="streetAddress"
@@ -206,7 +212,7 @@ const Cart = () => {
                       required
                     />
                   </Grid>
-                  <Grid xs={12}>
+                  <Grid item xs={12}>
                     <Field
                       as={TextField}
                       name="state"
@@ -216,7 +222,7 @@ const Cart = () => {
                       required
                     />
                   </Grid>
-                  <Grid xs={12}>
+                  <Grid item xs={12}>
                     <Field
                       as={TextField}
                       name="city"
@@ -226,7 +232,7 @@ const Cart = () => {
                       required
                     />
                   </Grid>
-                  <Grid xs={12}>
+                  <Grid item xs={12}>
                     <Field
                       as={TextField}
                       name="pincode"
@@ -236,7 +242,7 @@ const Cart = () => {
                       required
                     />
                   </Grid>
-                  <Grid xs={12}>
+                  <Grid item xs={12}>
                     <Button
                       fullWidth
                       variant="contained"

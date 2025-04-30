@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -9,7 +9,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     if (email) {
       alert(`Password reset link sent to ${email}!`);
-      navigate('/login'); // Redirect to login page
+      navigate('/'); // Redirect to login page
     } else {
       alert('Please enter your email.');
     }
@@ -28,8 +28,7 @@ const ForgotPassword = () => {
           color: "white"
         }}
       >
-        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Forgot Password</h2>
-        
+        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Forgot Password</h2>  
         <input 
           type="email" 
           placeholder="Enter your Email" 

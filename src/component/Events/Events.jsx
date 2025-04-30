@@ -1,5 +1,4 @@
 import React from 'react'
-import EventCard from '../Profile/EventCard'
 
 const Events = () => {
   return (

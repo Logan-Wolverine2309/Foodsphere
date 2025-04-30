@@ -111,7 +111,7 @@ export const RegisterForm = () => {
               </Button>
             </Form>
           </Formik>
-
+{/* 
           <Typography variant="body2" align="center" sx={{ mt: 4 }}>
             Already have an account?
             <Button size="small" onClick={() => navigate('/account/login')}
@@ -119,7 +119,7 @@ export const RegisterForm = () => {
               color="primary">
               Login
             </Button>
-          </Typography>
+          </Typography> */}
         </div>
       </motion.div>
     </div>

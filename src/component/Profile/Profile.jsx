@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Logout from './Logout';
-import Notification from './Notification';
-
 import Events from '../Events/Events';
+import Favorites from '../SettingsDrawer/Sections/Favourites';
+import Notification from '../SettingsDrawer/Sections/Notification';
+import Order from '../SettingsDrawer/Sections/Order';
+import Refunds from '../SettingsDrawer/Sections/Refunds';
 import Address from './Address';
-import Favorites from './Favorites';
 import ProfileNavigation from './ProfileNavigation';
-import Refunds from './Refunds';
-import Settings from './Settings';
-import UserProfile from './UserProfile';
-import Order from './Order';
 
 
 const Profile = () => {

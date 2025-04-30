@@ -1,6 +1,6 @@
 // Offers.js
 import React from 'react';
-import EventCard from '../Profile/EventCard';
+
 
 const offerList = [
   {
