@@ -109,15 +109,15 @@ const AuthForm = () => {
   >
     {isRegistering ? 'Login' : 'Register'}
   </Button>
-
+{/* 
   <div className="mt-4 flex flex-col items-center space-y-2">
-    {!isRegistering && (
+    
       <Link to="/forgotpassword" className="text-blue-400 hover:underline">
         Forgot Password?
       </Link>
-    )}
-    <p>By continuing, i agree to the terms of use & privacy policy.</p>
-  </div>
+    
+    
+  </div> */}
 </Typography>
 
       </div>

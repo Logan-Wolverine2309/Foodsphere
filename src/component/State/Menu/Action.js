@@ -108,7 +108,7 @@ export const updateMenuItemAvailability=({foodID, jwt})=>{
             dispatch({type:UPDATE_MENU_ITEM_AVAILABILITY_SUCCESS,payload:data});
             console.log("update menu item availability success",data);
         } catch(error){
-            dispatch({type:UPDATE_MENU_ITEM_AVAILABILITY_FAILURE,payload:error});
+            dispatch({type:UPDATE_MENU_ITEM_AVAILABILITY_FAILURE,payload:error.message});
             console.log("error",error);
         };
     };
@@ -127,7 +127,7 @@ export const deleteFoodAction=({foodId, jwt})=>{
             dispatch({type:DELETE_MENU_ITEM_SUCCESS,payload:data});
             console.log("delete food success",data);
         } catch(error){
-            dispatch({type:DELETE_MENU_ITEM_FAILURE,payload:error});
+            dispatch({type:DELETE_MENU_ITEM_FAILURE,payload:error.message});
             console.log("error",error);
         };
     };

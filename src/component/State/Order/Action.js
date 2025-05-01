@@ -24,7 +24,7 @@ export const createOrder = (reqData) => {
             console.log("create order data", data);
         } catch (error) {
             console.log("catch error", error);
-            dispatch({ type: CREATE_ORDER_FAILURE, payload: error });
+            dispatch({ type: CREATE_ORDER_FAILURE, payload: error.message });
             console.log("error", error);
         }
     }
@@ -43,7 +43,7 @@ export const getUsersOrder = (jwt) => {
             console.log("users order", data);
         } catch (error) {
             console.log("catch error", error);
-            dispatch({ type: GET_USERS_ORDER_FAILURE, payload: error });
+            dispatch({ type: GET_USERS_ORDER_FAILURE, payload: error.message });
             console.log("error", error);
         }
     }
@@ -62,7 +62,7 @@ export const cancelOrder = (reqData) => {
             console.log("users order", data);
         } catch (error) {
             console.log("catch error", error);
-            dispatch({ type: GET_USERS_ORDER_FAILURE, payload: error });
+            dispatch({ type: GET_USERS_ORDER_FAILURE, payload: error.message });
             console.log("error", error);
         }
     }

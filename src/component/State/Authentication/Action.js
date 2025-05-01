@@ -32,7 +32,7 @@ export const registerUser=(reqData)=>async(dispatch)=>{
 
         } catch (error) {
         dispatch({type:REGISTER_FAILURE, payload: error})
-        console.error("error:", error)
+        console.error("error:", error?.message || error)
     }
 }
 
@@ -54,7 +54,7 @@ export const loginUser=(reqData)=>async(dispatch)=>{
 
     } catch (error){
         
-        dispatch({type:LOGIN_FAILURE, payload: error})
+        dispatch({type:LOGIN_FAILURE, payload: error.message})
         console.error("error:", error)
     }
 }
@@ -75,7 +75,7 @@ export const getUser=(jwt)=>async(dispatch)=>{
 
     } catch (error){
         
-        dispatch({type:GET_USER_FAILURE, payload: error})
+        dispatch({type:GET_USER_FAILURE, payload: error.message})
         console.error("error:", error)
     }
 }
@@ -96,7 +96,7 @@ export const addToFavorites=({jwt,restaurantId})=>async(dispatch)=>{
 
     } catch (error){
         
-        dispatch({type:ADD_TO_FAVOURITE_FAILURE, payload: error})
+        dispatch({type:ADD_TO_FAVOURITE_FAILURE, payload: error.messgae})
         console.error("error:", error)
     }
 }

@@ -26,7 +26,7 @@ export const updateOrderStatus = ({ orderId, orderStatus, jwt }) => {
             dispatch({ type: UPDATE_ORDER_STATUS_SUCCESS, payload: updateOrder });
             console.log("update order status", updateOrder);
         } catch (error) {
-            dispatch({ type: UPDATE_ORDER_STATUS_FAILURE, payload: error });
+            dispatch({ type: UPDATE_ORDER_STATUS_FAILURE, payload: error.message });
             console.log("error", error);
         }
     };
@@ -46,7 +46,7 @@ export const fetchRestaurantsOrder = ({ restaurantId, orderStatus, jwt }) => {
             dispatch({ type: GET_RESTAURANT_ORDER_SUCCESS, payload: orders });
             console.log("restaurant order", orders);
         } catch (error) {
-            dispatch({ type: GET_RESTAURANT_ORDER_FAILURE, payload: error });
+            dispatch({ type: GET_RESTAURANT_ORDER_FAILURE, payload: error.message });
             console.log("error", error);
         }
     };

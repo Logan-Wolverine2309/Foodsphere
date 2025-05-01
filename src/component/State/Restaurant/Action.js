@@ -34,9 +34,9 @@ CREATE_RESTAURANT_FAILURE,
 DELETE_RESTAURANT_REQUEST,
 DELETE_RESTAURANT_SUCCESS,
 DELETE_RESTAURANT_FAILURE,
-CRAETE_CATEGORY_REQUEST,
-CRAETE_CATEGORY_SUCCESS,
-CRAETE_CATEGORY_FAILURE,
+CREATE_CATEGORY_REQUEST,
+CREATE_CATEGORY_SUCCESS,
+CREATE_CATEGORY_FAILURE,
 
 } from "./ActionTypes"
 import { api } from "../../config/api";
@@ -55,7 +55,7 @@ import { api } from "../../config/api";
     console.log("all restaurant",data);
         } catch(error){
              console.log("catch error",error);
-            dispatch({type:GET_ALL_RESTAURANT_FAILURE,payload:error});
+            dispatch({type:GET_ALL_RESTAURANT_FAILURE,payload:error.message});
             console.log("error",error);
         }
     }}
@@ -70,7 +70,7 @@ export const getRestaurantById=(restaurantId,reqData)=>{
 });
 dispatch({type:GET_RESTAURANT_BY_ID_SUCCESS,payload:response.data});
             }catch(error){
-                dispatch({type:GET_RESTAURANT_BY_ID_FAILURE,payload:error});
+                dispatch({type:GET_RESTAURANT_BY_ID_FAILURE,payload:error.message});
                 console.log("error",error);
             };
         };
@@ -125,7 +125,7 @@ export const updateRestaurant=({restaurantId, restaurantData, jwt})=>{
     });
     dispatch({type:UPDATE_RESTAURANT_STATUS_SUCCESS,payload:response.data});
 } catch(error){
-    dispatch({type:UPDATE_RESTAURANT_STATUS_FAILURE,payload:error});
+    dispatch({type:UPDATE_RESTAURANT_STATUS_FAILURE,payload:error.message});
     console.log("error",error);
 };
 };
@@ -142,7 +142,7 @@ export const deleteRestaurant=(restaurantId, jwt)=>{
 dispatch({type:DELETE_RESTAURANT_SUCCESS,payload:response.restaurantId});
         }
         catch(error){
-            dispatch({type:DELETE_RESTAURANT_FAILURE,payload:error});
+            dispatch({type:DELETE_RESTAURANT_FAILURE,payload:error.message});
             console.log("error",error);
         };
     };
@@ -161,7 +161,7 @@ console.log("ressssss",response.data);
 dispatch({type:UPDATE_RESTAURANT_STATUS_SUCCESS,payload:response.data});
 }
 catch(error){
-    dispatch({type:UPDATE_RESTAURANT_STATUS_FAILURE,payload:error});
+    dispatch({type:UPDATE_RESTAURANT_STATUS_FAILURE,payload:error.message});
     console.log("error",error);
 };
 };
@@ -180,7 +180,7 @@ dispatch({type:CREATE_EVENT_SUCCESS,payload:data});
 console.log("create event",data);
         }
         catch(error){
-            dispatch({type:CREATE_EVENT_FAILURE,payload:error});
+            dispatch({type:CREATE_EVENT_FAILURE,payload:error.message});
             console.log("error",error);
         };
     };
@@ -200,7 +200,7 @@ dispatch({type:GET_ALL_EVENT_SUCCESS,payload:response.data});
 console.log("all event",response.data);
         }
         catch(error){
-            dispatch({type:GET_ALL_EVENT_FAILURE,payload:error});
+            dispatch({type:GET_ALL_EVENT_FAILURE,payload:error.message});
             console.log("error",error);
         };
     };
@@ -219,7 +219,7 @@ console.log("delete event",response.data);
 dispatch({type:DELETE_EVENT_SUCCESS,payload:eventId});
         }
         catch(error){
-            dispatch({type:DELETE_EVENT_FAILURE,payload:error});
+            dispatch({type:DELETE_EVENT_FAILURE,payload:error.message});
             console.log("catch  -",error);
         };
     };
@@ -247,7 +247,7 @@ console.log("restaurant event",response.data);
 
 export const createCategoryAction = ({ reqData, jwt, restaurantId }) => {
     return async (dispatch) => {
-        dispatch({ type: CRAETE_CATEGORY_REQUEST });
+        dispatch({ type: CREATE_CATEGORY_REQUEST });
         try {
             const { response } = await api.post(
                 `/api/admin/restaurants/${restaurantId}/category`,
@@ -259,11 +259,11 @@ export const createCategoryAction = ({ reqData, jwt, restaurantId }) => {
                 }
             );
             console.log("create category", response.data);
-            dispatch({ type: CRAETE_CATEGORY_SUCCESS, payload: response.data });
+            dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: response.data });
             console.log("create category", response.data);
         } catch (error) {
             console.log("catch -", error);
-            dispatch({ type: CRAETE_CATEGORY_FAILURE, payload: error });
+            dispatch({ type: CREATE_CATEGORY_FAILURE, payload: error.message });
             console.log("error", error);
         }
     };
@@ -283,7 +283,7 @@ dispatch({type:GET_RESTAURANT_CATEGORY_SUCCESS,payload:response.data});
 console.log("restaurant category",response.data);
         }
         catch(error){
-            dispatch({type:GET_RESTAURANT_CATEGORY_FAILURE,payload:error});
+            dispatch({type:GET_RESTAURANT_CATEGORY_FAILURE,payload:error.message});
             console.log("error",error);
         };
     };
