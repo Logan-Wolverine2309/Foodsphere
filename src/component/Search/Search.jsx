@@ -1,50 +1,54 @@
-import { useState } from 'react';
-import { FaSearch, FaTimes } from 'react-icons/fa';
-import { IoSearchSharp } from "react-icons/io5";
-
+import { useState, useEffect } from 'react';
+import { FaSearch } from 'react-icons/fa';
 
 export default function Search() {
   const [query, setQuery] = useState("");
-  const [recentSearches, setRecentSearches] = useState([
-    "Pizza", "Burger", "Ice Cream"
-  ]);
+  const [recentSearches, setRecentSearches] = useState(["Pizza", "Burger", "Ice Cream"]);
+  const [filteredItems, setFilteredItems] = useState([]);
 
-  const foodItems = [
-    "Pizza", "Burger", "Pasta", "Salad", "Sushi",
-    "Tacos", "Sandwich", "Ice Cream", "Steak", "Fries"
-  ];
+  useEffect(() => {
+    const fetchData = () => {
+      const allItems = [
+        "Pizza", "Burger", "Pasta", "Salad", "Sushi",
+        "Tacos", "Sandwich", "Ice Cream", "Steak", "Fries"
+      ];
+      const result = allItems.filter(item =>
+        item.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredItems(result);
+    };
 
-  const filteredItems = foodItems.filter(item =>
-    item.toLowerCase().includes(query.toLowerCase())
-  );
+    const timeout = setTimeout(() => {
+      if (query.trim()) fetchData();
+    }, 300); // simulate delay
 
-  const handleClearRecent = () => {
-    setRecentSearches([]);
-  };
+    return () => clearTimeout(timeout);
+  }, [query]);
 
+  const handleClearRecent = () => setRecentSearches([]);
   const handleSearchChange = (e) => {
-    setQuery(e.target.value);
-    if (e.target.value && !recentSearches.includes(e.target.value)) {
-      setRecentSearches([e.target.value, ...recentSearches]);
+    const value = e.target.value;
+    setQuery(value);
+    if (value && !recentSearches.includes(value)) {
+      setRecentSearches([value, ...recentSearches]);
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
-      
       {/* Search bar */}
       <div className="flex items-center bg-gray-800 rounded-lg px-4 py-2">
         <FaSearch className="text-gray-400 mr-2" />
         <input
           type="text"
-          placeholder="Search for..."
+          placeholder="Search for food..."
           className="bg-transparent outline-none flex-1 text-lg"
           value={query}
           onChange={handleSearchChange}
         />
       </div>
 
-      {/* Recent searches */}
+      {/* Recent Searches */}
       {recentSearches.length > 0 && (
         <div className="mt-6">
           <div className="flex justify-between items-center mb-2">
@@ -81,7 +85,7 @@ export default function Search() {
         </div>
       )}
 
-      {/* Trending categories (static) */}
+      {/* Trending Categories */}
       <div className="mt-8">
         <h2 className="text-lg font-semibold mb-2">Trending in your city</h2>
         <div className="grid grid-cols-3 gap-4">
@@ -92,7 +96,6 @@ export default function Search() {
           ))}
         </div>
       </div>
-
     </div>
   );
 }

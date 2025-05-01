@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import React from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import About from "../About/About";
-import Auth from "../Auth/Auth";
 import Cart from "../Cart/Cart";
 import Contact from "../Navbar/Contact";
-import ForgotPassword from "../Auth/ForgotPassword";
 import Help from "../Help/Help";
 import Home from "../Home/Home";
 import Offers from "../Offers/Offers";
@@ -16,39 +14,38 @@ import Terms from "../Term/Terms";
 import UserAvatar from "../UserAvatar/UserAvatar";
 import SettingsDrawer from "../SettingsDrawer/Index";
 import PaymentPage from "../Payment/PaymentPage";
-
+import AuthForm from "../Auth/AuthForm";
+import ForgotPassword from "../ForgotPassword/ForgotPassword";
 
 const CustomerRoute = () => {
   const location = useLocation();
 
+  // Define paths where you want to hide the navbar
+  const hideNavbarRoutes = ["/", "/authform", "/forgotpassword"];
+  const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
+
   return (
     <div>
-     
-      <Navbar />
+      {!shouldHideNavbar && <Navbar />}
       <Routes>
-        
-
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<AuthForm />} /> {/* Default landing page */}
+        <Route path="/home" element={<Home />} />
         <Route path="/account/:register" element={<Home />} />
         <Route path="/resturant/city/:title/:id" element={<RestaurantDetails />} />
         <Route path="/search" element={<Search />} />
         <Route path="/cart" element={<Cart />} />
-        {/* <Route path="/settings" element={<Settings />} /> */}
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/help" element={<Help />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/offers" element={<Offers />} />
         <Route path="/payment" element={<PaymentPage />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
-        <Route path="terms" element={<Terms />} />
-        {/* <Route path="/feedback" element={<Feedback/>} /> */}
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="/useravatar" element={<UserAvatar />} />
-        <Route path="/settingsdrawer" element={<SettingsDrawer/>}/>
-        
+        <Route path="/settingsdrawer" element={<SettingsDrawer />} />
+        <Route path="/authform" element={<AuthForm />} />
       </Routes>
-
-      <Auth />
     </div>
   );
 };
