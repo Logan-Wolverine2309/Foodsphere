@@ -1,19 +1,22 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import  CreateRestaurantForm  from '../../AdminComponent/CreateRestaurantForm/CreateRestaurantForm'
-import { Admin } from '../../AdminComponent/Admin/Admin'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import CreateRestaurantForm from '../../AdminComponent/CreateRestaurantForm/CreateRestaurantForm';
+import { Admin } from '../../AdminComponent/Admin/Admin';
+import { useSelector } from 'react-redux';
 
 export const AdminRoute = () => {
-  const {restaurant} = useSelector(state=> state);
+  const { restaurant } = useSelector(state => state);
+
   return (
     <div>
-        <Routes>
-            <Route path= "/*" element={
-                !restaurant.usersrestaurant ? <CreateRestaurantForm/> : <Admin/>}>
-
-            </Route>
-        </Routes>
+      <Routes>
+        <Route
+          path="/*"
+          element={
+            !restaurant?.usersRestaurant ? <CreateRestaurantForm /> : <Admin />
+          }
+        />
+      </Routes>
     </div>
-  )
-}
+  );
+};

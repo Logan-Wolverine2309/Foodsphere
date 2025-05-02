@@ -21,11 +21,11 @@ export const Navbar = () => {
       ? " text-pink-600 font-bold px-3 py-1 rounded-full bg-white"
       : "";
 
-  const isHome = location.pathname === "/";
+  const isHome = location.pathname === "/home";
 
   const handleAvatarClick = () => {
     if (auth?.user?.role === "ROLE_CUSTOMER") {
-      navigate("/settings");
+      navigate("/");
     } else {
       navigate("/admin/restaurants");
     }
@@ -40,9 +40,10 @@ export const Navbar = () => {
 
   return (
     <>
-      <Box className="px-2 sticky top-0 z-50 py-[.6rem] bg-[#f50057] lg:px-20 flex justify-between">
+      <Box className="px-2 sticky top-0 z-50 py-[.6rem] bg-[#f50057]
+       lg:px-20 flex justify-between">
         <div className="flex items-center justify-between p-2">
-          <Link to="/">
+          <Link to="/home">
             <div className="flex items-center">
               <img
                 src="https://i.imgur.com/EaVTotc.jpeg"
@@ -58,7 +59,7 @@ export const Navbar = () => {
 
         <div className="flex items-center space-x-2 la:space-x-10">
           <div className="flex items-center gap-6 text-white text-lg">
-            {location.pathname === "/" && (
+            {location.pathname === "/home" && (
               <>
                 <Link to="/search" className={getLinkClass("/search")}>
                   Search
@@ -91,7 +92,7 @@ export const Navbar = () => {
                     <Person />
                   </IconButton>
                 )}
-              </div> */}
+              // </div> */}
 
               <div>
                 <IconButton onClick={() => navigate("/cart")}>

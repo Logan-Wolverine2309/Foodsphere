@@ -12,6 +12,7 @@ import { Field, Form, Formik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { createOrder } from "../State/Order/Action";
 import { useNavigate } from "react-router-dom";
+import { findUserCart } from "../State/Cart/Action";
 
 export const style = {
   position: "absolute",
@@ -46,7 +47,7 @@ const Cart = () => {
 
   // ✅ Fetch cart on mount
   useEffect(() => {
-    if (jwt) dispatch(getCart(jwt));
+    if (jwt) dispatch(findUserCart(jwt));
   }, [dispatch, jwt]);
 
   const handleProceedToPay = () => {

@@ -6,9 +6,9 @@ import { ADD_ITEM_TO_CART_FAILURE,
     CLEAR_CART_FAILURE, 
     CLEAR_CART_REQUEST, 
     CLEAR_CART_SUCCESS, 
-    FIND_CART_FAILURE, 
-    FIND_CART_REQUEST,
-    FIND_CART_SUCCESS,
+    FIND_USER_CART_FAILURE, 
+    FIND_USER_CART_REQUEST,
+    FIND_USER_CART_SUCCESS,
     GET_ALL_CART_ITEM_FAILURE, 
     GET_ALL_CART_ITEM_REQUEST,
     GET_ALL_CART_ITEM_SUCCESS,
@@ -19,9 +19,9 @@ import { ADD_ITEM_TO_CART_FAILURE,
     UPDATE_CART_ITEM_REQUEST, 
     UPDATE_CART_ITEM_SUCCESS } from './ActionTypes';
 
-export const findCart =(token)=>{
+export const findUserCart =(token)=>{
     return async(dispatch)=>{
-        dispatch({type:FIND_CART_REQUEST});
+        dispatch({type:FIND_USER_CART_REQUEST});
         try{
         const response = await api.get(`/api/cart`, {
             headers: {
@@ -29,11 +29,11 @@ export const findCart =(token)=>{
             }
         });
         console.log("my cart",response.data);
-        dispatch({type:FIND_CART_SUCCESS,payload:response.data});
+        dispatch({type:FIND_USER_CART_SUCCESS,payload:response.data});
         console.log("find cart",response.data);
         } catch(error){
             console.log("catch error",error);
-            dispatch({type:FIND_CART_FAILURE,payload:error.message});
+            dispatch({type:FIND_USER_CART_FAILURE,payload:error.message});
             console.log("error",error);
         }
     }};

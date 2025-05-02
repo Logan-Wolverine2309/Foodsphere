@@ -1,10 +1,16 @@
-// src/auth/AuthForm.jsx
-
 import React, { useState } from 'react';
-import { Button, TextField, Typography, MenuItem, Select } from '@mui/material';
+import {
+  Button,
+  TextField,
+  Typography,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+} from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { loginUser, registerUser } from '../State/Authentication/Action';
 
 const AuthForm = () => {
@@ -13,7 +19,12 @@ const AuthForm = () => {
   const navigate = useNavigate();
 
   const loginInitial = { email: '', password: '' };
-  const registerInitial = { fullName: '', email: '', password: '', role: '' };
+  const registerInitial = {
+    fullName: '',
+    email: '',
+    password: '',
+    role: '',
+  };
 
   const handleLogin = (values) => {
     dispatch(loginUser({ userData: values, navigate }));
@@ -33,93 +44,91 @@ const AuthForm = () => {
         <Formik
           initialValues={isRegistering ? registerInitial : loginInitial}
           onSubmit={isRegistering ? handleRegister : handleLogin}
+          enableReinitialize
         >
-          <Form>
-            {isRegistering && (
-              <>
-                <Field
-                  as={TextField}
+          {({ values, handleChange }) => (
+            <Form>
+              {isRegistering && (
+                <TextField
                   name="fullName"
                   label="Full Name"
                   fullWidth
                   margin="normal"
                   variant="outlined"
+                  value={values.fullName}
+                  onChange={handleChange}
                 />
-              </>
-            )}
+              )}
 
-            <Field
-              as={TextField}
-              name="email"
-              label="Email"
-              type="email"
-              fullWidth
-              margin="normal"
-              variant="outlined"
-            />
+              <TextField
+                name="email"
+                label="Email"
+                type="email"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={values.email}
+                onChange={handleChange}
+              />
 
-            <Field
-              as={TextField}
-              name="password"
-              label="Password"
-              type="password"
-              fullWidth
-              margin="normal"
-              variant="outlined"
-            />
+              <TextField
+                name="password"
+                label="Password"
+                type="password"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                value={values.password}
+                onChange={handleChange}
+              />
 
-            {isRegistering && (
-              <Field name="role">
-                {({ field }) => (
+              {isRegistering && (
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                  <InputLabel id="role-label" style={{ color: '#fff' }}>
+                    Select Role
+                  </InputLabel>
                   <Select
-                    {...field}
-                    fullWidth
-                    displayEmpty
-                    margin="normal"
+                    labelId="role-label"
+                    name="role"
+                    value={values.role || ''}
+                    onChange={handleChange}
+                    label="Select Role"
                     variant="outlined"
-                    sx={{ mt: 2 }}
+                    style={{ backgroundColor: '' }}
                   >
-                    {/* <MenuItem value="">Select Role</MenuItem> */}
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
                     <MenuItem value="ROLE_CUSTOMER">Customer</MenuItem>
                     <MenuItem value="ROLE_RESTAURANT_OWNER">Restaurant Owner</MenuItem>
                   </Select>
-                )}
-              </Field>
-            )}
+                </FormControl>
+              )}
 
-            <Button
-              fullWidth
-              type="submit"
-              variant="contained"
-              color="primary"
-              sx={{ mt: 3, py: 1.5 }}
-            >
-              {isRegistering ? 'Register' : 'Login'}
-            </Button>
-          </Form>
+              <Button
+                fullWidth
+                type="submit"
+                variant="contained"
+                color="primary"
+                sx={{ mt: 3, py: 1.5 }}
+              >
+                {isRegistering ? 'Register' : 'Login'}
+              </Button>
+            </Form>
+          )}
         </Formik>
 
         <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-  {isRegistering ? 'Already have an account?' : "Don't have an account?"}
-  <Button
-    size="small"
-    onClick={() => setIsRegistering(!isRegistering)}
-    sx={{ ml: 1 }}
-    color="secondary"
-  >
-    {isRegistering ? 'Login' : 'Register'}
-  </Button>
-{/* 
-  <div className="mt-4 flex flex-col items-center space-y-2">
-    
-      <Link to="/forgotpassword" className="text-blue-400 hover:underline">
-        Forgot Password?
-      </Link>
-    
-    
-  </div> */}
-</Typography>
-
+          {isRegistering ? 'Already have an account?' : "Don't have an account?"}
+          <Button
+            size="small"
+            onClick={() => setIsRegistering(!isRegistering)}
+            sx={{ ml: 1 }}
+            color="secondary"
+          >
+            {isRegistering ? 'Login' : 'Register'}
+          </Button>
+        </Typography>
       </div>
     </div>
   );

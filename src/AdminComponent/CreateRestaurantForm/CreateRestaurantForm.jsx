@@ -64,7 +64,7 @@ const CreateRestaurantForm = () => {
 
       try {
          dispatch(createRestaurant({ data, token: jwt }));
-        navigate("/admin/sidebar"); // Change "/admin/sidebar" to your real admin page route
+        navigate("/Admin"); // Change "/admin/sidebar" to your real admin page route
       } catch (error) {
         console.error("Failed to create restaurant", error);
         // You can show an alert or toast here if needed

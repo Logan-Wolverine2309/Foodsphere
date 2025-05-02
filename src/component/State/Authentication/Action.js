@@ -15,49 +15,49 @@ import { ADD_TO_FAVOURITE_FAILURE,
     REGISTER_SUCCESS 
 } from "./ActionType";
 
-export const registerUser=(reqData)=>async(dispatch)=>{
-    dispatch({type:REGISTER_REQUEST})
-    try{
-
-      const {data}=await axios.post(`${API_URL}/auth/signup`,reqData.userData)
-       if(data.jwt)localStorage.setItem("jwt",data.jwt);
-       if(data.role==="ROLE_RESTAURANT_OWNER"){
-        reqData.navigate("/admin/restaurants")
-       }
-        else{
-            reqData.navigate("/")
-        }
-        dispatch({type:REGISTER_SUCCESS, payload:jwt.data})
-        console.log("register success", data)
-
-        } catch (error) {
-        dispatch({type:REGISTER_FAILURE, payload: error})
-        console.error("error:", error?.message || error)
+export const registerUser = (reqData) => async (dispatch) => {
+    dispatch({ type: REGISTER_REQUEST });
+    try {
+      const { data } = await axios.post(`${API_URL}/auth/signup`, reqData.userData);
+  
+      if (data.jwt) localStorage.setItem("jwt", data.jwt);
+  
+      dispatch({ type: REGISTER_SUCCESS, payload: data });
+  
+      if (data.role === "ROLE_RESTAURANT_OWNER") {
+        reqData.navigate("/admin/restaurants");
+      } else {
+        reqData.navigate("/home"); // <-- change to your actual home path
+      }
+  
+      console.log("register success", data);
+    } catch (error) {
+      dispatch({ type: REGISTER_FAILURE, payload: error.message || error });
+      console.error("register error:", error);
     }
-}
-
-
-export const loginUser=(reqData)=>async(dispatch)=>{
-    dispatch({type:LOGIN_REQUEST})
-    try{
-
-       const {data}=await axios.post(`${API_URL}/auth/signin`,reqData.userData)
-       if(data.jwt)localStorage.setItem("jwt",data.jwt);
-       if(data.role==="ROLE_RESTAURANT_OWNER"){
-        reqData.navigate("/admin/restaurants")
-       }
-        else{
-            reqData.navigate("/")
-        }
-        dispatch({type:LOGIN_SUCCESS,payload:data.jwt})
-        console.log("login success",data)
-
-    } catch (error){
-        
-        dispatch({type:LOGIN_FAILURE, payload: error.message})
-        console.error("error:", error)
+  };
+  
+  export const loginUser = (reqData) => async (dispatch) => {
+    dispatch({ type: LOGIN_REQUEST });
+    try {
+      const { data } = await axios.post(`${API_URL}/auth/signin`, reqData.userData);
+  
+      if (data.jwt) localStorage.setItem("jwt", data.jwt);
+  
+      dispatch({ type: LOGIN_SUCCESS, payload: data });
+  
+      if (data.role === "ROLE_RESTAURANT_OWNER") {
+        reqData.navigate("/admin/restaurants");
+      } else {
+        reqData.navigate("/home"); // <-- change to your actual home path
+      }
+  
+      console.log("login success", data);
+    } catch (error) {
+      dispatch({ type: LOGIN_FAILURE, payload: error.message || error });
+      console.error("login error:", error);
     }
-}
+  };
 
 
 export const getUser=(jwt)=>async(dispatch)=>{

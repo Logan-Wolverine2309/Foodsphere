@@ -10,7 +10,7 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.FIND_CART_REQUEST:
+        case actionTypes.FIND_USER_CART_REQUEST:
         case actionTypes.GET_ALL_CART_ITEM_REQUEST:
         case actionTypes.ADD_ITEM_TO_CART_REQUEST:
         case actionTypes.UPDATE_CART_ITEM_REQUEST:
@@ -20,7 +20,7 @@ const cartReducer = (state = initialState, action) => {
                 loading: true,
                 error: null,
             };
-        case actionTypes.FIND_CART_SUCCESS:
+        case actionTypes.FIND_USER_CART_SUCCESS:
             case actionTypes.CLEAR_CART_SUCCESS:
             return {
                 ...state,
@@ -52,7 +52,7 @@ const cartReducer = (state = initialState, action) => {
                         cartItem: state.cartItem.filter((item) => item.id !== action.payload),
                     };
                     
-                    case actionTypes.FIND_CART_FAILURE:
+                    case actionTypes.FIND_USER_CART_FAILURE:
                         case actionTypes.GET_ALL_CART_ITEM_FAILURE:
                         case actionTypes.ADD_ITEM_TO_CART_FAILURE:
                         case actionTypes.UPDATE_CART_ITEM_FAILURE:

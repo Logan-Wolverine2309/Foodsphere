@@ -5,7 +5,7 @@ import Routers from './component/Routers/Routers';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from './component/State/Authentication/Action';
-import { findCart } from './component/State/Cart/Action';
+import { findUserCart } from './component/State/Cart/Action';
 import { getRestaurantById } from './component/State/Restaurant/Action';
 import process from 'process';
 
@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     if (token) {
       dispatch(getUser(token));
-      dispatch(findCart(token));
+      dispatch(findUserCart(token));
     }
   }, [token, dispatch]);
 
