@@ -9,31 +9,16 @@ export const api = axios.create({
   },
 });
 
-// 🛡️ Add a response interceptor
-// api.interceptors.response.use(
-//   (response) => response, // If response is successful, just return it
-//   (error) => {
-//     console.error("API Error:", error);
-    
-//     if (error.response?.status === 401) {
-//         toast.error("Unauthorized! Please login again.");
-//       }
-//       if (error.response?.status === 500) {
-//         toast.error("Server error! Try again later.");
-//       }
-      
-
-//     if (error.code === "ERR_NETWORK") {
-//       toast.error("🚨 Cannot reach server. Please check your connection!");
-//     } else if (error.response) {
-//       // Server responded but with an error status (400, 404, 500 etc)
-//       toast.error(`❗ Error ${error.response.status}: ${error.response.data?.message || error.message}`);
-//     } else {
-//       // Other errors
-//       toast.error(`❗ Something went wrong: ${error.message}`);
-//     }
-
-//     // Optionally: rethrow the error if you want to catch it later
-//     return Promise.reject(error);
-//   }
-// );
+// 🔐 Add token automatically if it exists in localStorage
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token"); // Or sessionStorage, wherever you store it
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);

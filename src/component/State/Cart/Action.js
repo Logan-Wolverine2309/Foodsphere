@@ -30,7 +30,7 @@ export const findUserCart =(token)=>{
         });
         console.log("my cart",response.data);
         dispatch({type:FIND_USER_CART_SUCCESS,payload:response.data});
-        console.log("find cart",response.data);
+        console.log("find user cart",response.data);
         } catch(error){
             console.log("catch error",error);
             dispatch({type:FIND_USER_CART_FAILURE,payload:error.message});
@@ -84,7 +84,7 @@ export const findUserCart =(token)=>{
                             quantity
                         },{
                             headers:{
-                                Authorizartion:`Bearer ${token}`
+                                Authorization:`Bearer ${token}`
                     },
                 });
                 dispatch({type:UPDATE_CART_ITEM_SUCCESS,payload:data});

@@ -64,7 +64,7 @@ const CreateRestaurantForm = () => {
 
       try {
          dispatch(createRestaurant({ data, token: jwt }));
-        navigate("/Admin"); // Change "/admin/sidebar" to your real admin page route
+        navigate("/admin/sidebar"); // Change "/admin/sidebar" to your real admin page route
       } catch (error) {
         console.error("Failed to create restaurant", error);
         // You can show an alert or toast here if needed
@@ -94,7 +94,7 @@ const CreateRestaurantForm = () => {
       </h1>
       <form onSubmit={formik.handleSubmit} className="spy-5">
         <Grid container spacing={5}>
-          <Grid className="flex flex-wrap gap-3" item xs={12}>
+          <Grid className="flex flex-wrap gap-3" size={{ xs:12 }} >
               <input
               accept='image/*'
               id='fileInput'
@@ -131,10 +131,7 @@ const CreateRestaurantForm = () => {
                  </IconButton>
 
               </div>)}
-              
-
             </div>
-
           </Grid>
           
           <Grid size={{ xs:12 }} >

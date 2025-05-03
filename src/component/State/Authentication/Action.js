@@ -76,7 +76,7 @@ export const getUser=(jwt)=>async(dispatch)=>{
     } catch (error){
         
         dispatch({type:GET_USER_FAILURE, payload: error.message})
-        console.error("error:", error)
+        console.error("catch error:", error)
     }
 }
 
@@ -97,7 +97,7 @@ export const addToFavorites=({jwt,restaurantId})=>async(dispatch)=>{
     } catch (error){
         
         dispatch({type:ADD_TO_FAVOURITE_FAILURE, payload: error.messgae})
-        console.error("error:", error)
+        console.error("catch error:", error)
     }
 }
 

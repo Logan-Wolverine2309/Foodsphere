@@ -82,7 +82,7 @@ const Cart = () => {
     <main className="p-5 space-y-5">
       {/* Cart Section */}
       <section className="bg-black p-5 rounded-lg shadow-sm space-y-4">
-        <h2 className="text-white font-bold">Delivery in 20 mins</h2>
+        {/* <h2 className="text-white font-bold">Delivery in 20 mins</h2> */}
 
         {cartItems.length ? (
           cartItems.map((item) => <CartItem item={item} key={item.id} />)
@@ -106,6 +106,7 @@ const Cart = () => {
             sx={{ bgcolor: "#1976d2", "&:hover": { bgcolor: "#115293" }, mt: 2 }}
           >
             Add 1 Month @ ₹19
+            
           </Button>
         </div>
 

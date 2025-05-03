@@ -20,7 +20,8 @@ import SidebarItem from "./SidebarItem";
 import Privacy from "./sections/Privacy";
 import Subscription from "./sections/Subscription";
 import UserInfo from "./sections/UserInfo";
-import Notification from "./Sections/Notification";
+import Notification from "./sections/Notification";
+
 
 
 export default function SettingsDrawer() {
@@ -30,7 +31,7 @@ export default function SettingsDrawer() {
 
   const confirmDelete = () => {
     // Optional: clear user session/localStorage here
-    window.location.href = "/login";
+    window.location.href = "/";
   };
 
   const sections = {
