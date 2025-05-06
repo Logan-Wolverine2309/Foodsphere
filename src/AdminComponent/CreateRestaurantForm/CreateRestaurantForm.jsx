@@ -5,7 +5,7 @@ import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { uploadImageToCloudinary } from '../util/UploadToCloudinary';
 import { useDispatch } from 'react-redux';
-import { createRestaurant } from '../../component/State/Restaurant/Action';
+import { createRestaurant } from '../../component/State/Restaurant/Action'; // Ensure this path and action are correct
 import { useNavigate } from 'react-router-dom';
 
 
@@ -28,7 +28,7 @@ const initialValues = {
   closingHours:"",
   images:[],
 };
-const CreateRestaurantForm = () => {
+export const CreateRestaurantForm = () => {
   const navigate = useNavigate();
 
   const [uploadImage, setUploadImage] = useState(false); // Used in image upload logic
@@ -62,15 +62,37 @@ const CreateRestaurantForm = () => {
 
       console.log("data ---", data);
 
-      try {
-         dispatch(createRestaurant({ data, token: jwt }));
-        navigate("/admin/sidebar"); // Change "/admin/sidebar" to your real admin page route
-      } catch (error) {
-        console.error("Failed to create restaurant", error);
-        // You can show an alert or toast here if needed
-      }
-    },
+      dispatch(createRestaurant({ data, token: jwt }));
+   
+
+      navigate("/create-restaurant");
+      formik.resetForm();
+      setUploadImage(false);
+      // Optionally, you can show a success message or redirect the user
+      // after successful creation
+      // For example, you can use a toast notification or alert
+      alert("Restaurant created successfully!");
+      // Or redirect to another page
+       navigate("/adminSideBar");
+      // Reset the form after submission
+      // formik.resetForm();
+      // Optionally, you can show a success message or redirect the user
+      // after successful creation
+      // For example, you can use a toast notification or alert
+      // alert("Restaurant created successfully!");
+      // Or redirect to another page
+      // navigate("/some-other-page");
+      // Reset the form after submission
+      // formik.resetForm();
+      // Optionally, you can show a success message or redirect the user
+      // after successful creation
+      // For example, you can use a toast notification or alert
+
+
+    }
+
   });
+    
 
   const handleImageChange = async(e) => {
     const file = e.target.files[0];
@@ -94,7 +116,7 @@ const CreateRestaurantForm = () => {
       </h1>
       <form onSubmit={formik.handleSubmit} className="spy-5">
         <Grid container spacing={5}>
-          <Grid className="flex flex-wrap gap-3" size={{ xs:12 }} >
+          <Grid className="flex flex-wrap gap-3" size={{ xs:12 }}>
               <input
               accept='image/*'
               id='fileInput'
@@ -131,14 +153,17 @@ const CreateRestaurantForm = () => {
                  </IconButton>
 
               </div>)}
+              
+
             </div>
+
           </Grid>
           
           <Grid size={{ xs:12 }} >
             <TextField fullWidth
               id="name"
               name="name"
-              label="Name"
+              label="Restaurant Name"
               variant="outlined"
               onChange={formik.handleChange}
               value={formik.values.name}
@@ -148,7 +173,7 @@ const CreateRestaurantForm = () => {
             <TextField fullWidth              
               id="description"
               name="description"
-              label="Description"
+              label="Description of your Restaurant"
               variant="outlined"
               onChange={formik.handleChange}
               value={formik.values.description}
@@ -332,11 +357,11 @@ const CreateRestaurantForm = () => {
           </Grid>
         </Grid>
         <br/>
-        <Button variant="contained" color="primary" type="submit">Create Restaurant</Button>
+        <Button variant="contained" color="secondary" type="submit">Create Restaurant</Button>
       </form>
      </div>
     </div>
   )
 }
 
-export default CreateRestaurantForm;
+

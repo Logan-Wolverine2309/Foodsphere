@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Events from '../Events/Events';
 import Favorites from '../SettingsDrawer/Sections/Favourites';
 import Notification from '../SettingsDrawer/Sections/Notification';
 import Order from '../SettingsDrawer/Sections/Order';
@@ -25,7 +24,6 @@ const Profile = () => {
           <Route path="/order" element={<Order/>}/>
           <Route path="/address" element={<Address/>}/>
           <Route path="/favorites" element={<Favorites/>}/>
-          <Route path="/events" element={<Events/>}/>
           <Route path="/settings" element={<Settings/>}/>
           <Route path="/refunds" element={<Refunds/>}/>
           <Route path="/notification" element={<Notification/>}/>

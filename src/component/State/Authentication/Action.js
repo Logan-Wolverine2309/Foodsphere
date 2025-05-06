@@ -1,5 +1,4 @@
 import axios from "axios";
-import { api, API_URL } from "../../config/api";
 import { ADD_TO_FAVOURITE_FAILURE, 
     ADD_TO_FAVOURITE_REQUEST,
     ADD_TO_FAVOURITE_SUCCESS, 
@@ -14,6 +13,7 @@ import { ADD_TO_FAVOURITE_FAILURE,
     REGISTER_REQUEST, 
     REGISTER_SUCCESS 
 } from "./ActionType";
+import api, { API_URL } from "../../config/api";
 
 export const registerUser = (reqData) => async (dispatch) => {
     dispatch({ type: REGISTER_REQUEST });
@@ -49,7 +49,7 @@ export const registerUser = (reqData) => async (dispatch) => {
       if (data.role === "ROLE_RESTAURANT_OWNER") {
         reqData.navigate("/admin/restaurants");
       } else {
-        reqData.navigate("/home"); // <-- change to your actual home path
+        reqData.navigate("/"); // <-- change to your actual home path
       }
   
       console.log("login success", data);
@@ -76,7 +76,7 @@ export const getUser=(jwt)=>async(dispatch)=>{
     } catch (error){
         
         dispatch({type:GET_USER_FAILURE, payload: error.message})
-        console.error("catch error:", error)
+        console.error("error:", error)
     }
 }
 
@@ -85,7 +85,7 @@ export const addToFavorites=({jwt,restaurantId})=>async(dispatch)=>{
     dispatch({type:ADD_TO_FAVOURITE_REQUEST})
     try{
 
-       const {data}=await api.put(`/api/restaurants/${restaurantId}/add-favourite`,{},{
+       const {data}=await api.put(`/api/restaurants/${restaurantId}/add-favourites`,{},{
         headers:{
             Authorization:`Bearer ${jwt}`
         }
@@ -97,7 +97,7 @@ export const addToFavorites=({jwt,restaurantId})=>async(dispatch)=>{
     } catch (error){
         
         dispatch({type:ADD_TO_FAVOURITE_FAILURE, payload: error.messgae})
-        console.error("catch error:", error)
+        console.error("error:", error)
     }
 }
 

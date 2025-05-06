@@ -20,8 +20,7 @@ import SidebarItem from "./SidebarItem";
 import Privacy from "./sections/Privacy";
 import Subscription from "./sections/Subscription";
 import UserInfo from "./sections/UserInfo";
-import Notification from "./sections/Notification";
-
+import Notification from "./Sections/Notification";
 
 
 export default function SettingsDrawer() {

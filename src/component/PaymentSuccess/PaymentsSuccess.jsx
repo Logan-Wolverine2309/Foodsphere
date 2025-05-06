@@ -30,7 +30,7 @@ const PaymentSuccess = () => {
 
         <button
           className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300"
-          onClick={() => window.location.href = '/home'} // Go back to Home
+          onClick={() => window.location.href = '/'} // Go back to Home
         >
           Continue Shopping
         </button>

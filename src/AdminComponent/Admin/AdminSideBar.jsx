@@ -1,96 +1,64 @@
-import {
-  Dashboard,
-  ShoppingBag,
-  ShopTwo,
-  Category,
-  Fastfood,
-  Event,
-  AdminPanelSettings,
-  Logout,
-  Menu as MenuIcon,
-} from '@mui/icons-material';
-import {
-  Divider,
-  Drawer,
-  IconButton,
-  useMediaQuery,
-  Tooltip,
-} from '@mui/material';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { Dashboard, ShoppingBag } from '@mui/icons-material';
+import ShopTwoIcon from '@mui/icons-material/ShopTwo';
+import CategoryIcon from '@mui/icons-material/Category';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+import EventIcon from '@mui/icons-material/Event';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Divider, Drawer, useMediaQuery } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../../component/State/Authentication/Action';
+import { useDispatch } from 'react-redux';
 
 const menu = [
   { title: 'Dashboard', icon: <Dashboard />, path: '/' },
   { title: 'Orders', icon: <ShoppingBag />, path: '/orders' },
-  { title: 'Menu', icon: <ShopTwo />, path: '/menu' },
-  { title: 'Food Category', icon: <Category />, path: '/category' },
-  { title: 'Ingredients', icon: <Fastfood />, path: '/ingredients' },
-  { title: 'Events', icon: <Event />, path: '/event' },
-  { title: 'Details', icon: <AdminPanelSettings />, path: '/details' },
-  { title: 'Logout', icon: <Logout />, path: '/' },
+  { title: 'Menu', icon: <ShopTwoIcon />, path: '/menu' },
+  { title: 'Food Category', icon: <CategoryIcon />, path: '/category' },
+  { title: 'Ingredients', icon: <FastfoodIcon />, path: '/ingredients' },
+  { title: 'Events', icon: <EventIcon />, path: '/event' },
+  { title: 'Details', icon: <AdminPanelSettingsIcon />, path: '/details' },
+  { title: 'Logout', icon: <LogoutIcon />, path: '/' },
 ];
 
 export const AdminSideBar = ({ open, handleClose }) => {
   const isSmallScreen = useMediaQuery('(max-width:1080px)');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
 
   const handleNavigate = (item) => {
     if (item.title === 'Logout') {
       dispatch(logout());
       navigate('/');
     } else {
-      navigate(`/admin/restaurants${item.path}`);
+      navigate(`/admin${item.path}`); // ✅ FIXED path prefix
     }
-    if (isSmallScreen) handleClose();
+    if (isSmallScreen) handleClose(); // ✅ Only close on small screens
   };
-
-  const isActive = (path) =>
-    location.pathname === `/admin/restaurants${path}`;
 
   return (
     <Drawer
       variant={isSmallScreen ? 'temporary' : 'permanent'}
-      open={isSmallScreen ? open : true}
       onClose={handleClose}
+      open={isSmallScreen ? open : true}
       anchor="left"
       sx={{
         '& .MuiDrawer-paper': {
-          width: collapsed ? '5rem' : isSmallScreen ? '50vw' : '18vw',
-          transition: 'width 0.3s',
+          width: isSmallScreen ? '50vw' : '20vw',
           boxSizing: 'border-box',
-          paddingTop: '1rem',
         },
       }}
     >
-      {/* Collapse Toggle Button */}
-      {!isSmallScreen && (
-        <div className="flex justify-end px-2">
-          <IconButton onClick={() => setCollapsed(!collapsed)}>
-            <MenuIcon />
-          </IconButton>
-        </div>
-      )}
-
-      {/* Menu Items */}
-      <div className="h-full flex flex-col gap-2 text-[1rem]">
+      <div className="h-full flex flex-col justify-center text-xl gap-4 py-4">
         {menu.map((item, i) => (
           <div key={i}>
-            <Tooltip title={collapsed ? item.title : ''} placement="right">
-              <div
-                onClick={() => handleNavigate(item)}
-                className={`px-4 py-3 flex items-center gap-3 cursor-pointer 
-                  ${isActive(item.path) ? 'bg-gray-200 font-semibold' : 'hover:bg-gray-100'}
-                `}
-              >
-                {item.icon}
-                {!collapsed && <span>{item.title}</span>}
-              </div>
-            </Tooltip>
+            <div
+              onClick={() => handleNavigate(item)}
+              className="px-5 py-2 flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition"
+            >
+              {item.icon}
+              <span>{item.title}</span>
+            </div>
             {i !== menu.length - 1 && <Divider />}
           </div>
         ))}

@@ -1,13 +1,14 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import './App.css';
 import { darkTheme } from './component/Theme/DarkTheme';
-import Routers from './component/Routers/Routers';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from './component/State/Authentication/Action';
 import { findUserCart } from './component/State/Cart/Action';
 import { getRestaurantById } from './component/State/Restaurant/Action';
 import process from 'process';
+import { Routers } from './component/Routers/Routers';
+
 
 window.process = process;
 
@@ -16,7 +17,7 @@ function App() {
   const jwt = localStorage.getItem("jwt");
 
   // Selector should grab the whole auth state, not just auth.user
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((store) => store.auth);
 
   const token = auth?.jwt || jwt;
 
@@ -28,8 +29,8 @@ function App() {
   }, [token, dispatch]);
 
   useEffect(() => {
-    if (token) {
-      dispatch(getRestaurantById(token));
+    if (jwt) {
+      dispatch(getRestaurantById(jwt));
     }
   }, [token, dispatch]);
 

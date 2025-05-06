@@ -1,4 +1,5 @@
-import { api } from "../../config/api";
+
+import api from "../../config/api";
 import { CREATE_INGREDIENTS_CATEGORY_SUCCESS, 
     CREATE_INGREDIENTS_SUCCESS, 
     GET_INGREDIENTS, 

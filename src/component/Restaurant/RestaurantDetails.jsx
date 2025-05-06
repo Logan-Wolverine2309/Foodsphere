@@ -5,7 +5,7 @@ import MenuCard from './MenuCard';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRestaurantById, getRestaurantCategory} from '../State/Restaurant/Action';
+import {  getRestaurantById, getRestaurantCategory} from '../State/Restaurant/Action';
 import { getMenuItemsByRestaurantId } from '../State/Menu/Action';
 import { Grid } from '@mui/material';
 

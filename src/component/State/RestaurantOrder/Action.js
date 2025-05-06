@@ -1,3 +1,4 @@
+import api from "../../config/api";
 import {
     UPDATE_ORDER_STATUS_REQUEST, 
     UPDATE_ORDER_STATUS_SUCCESS, 
@@ -6,7 +7,7 @@ import {
     GET_RESTAURANT_ORDER_SUCCESS, 
     GET_RESTAURANT_ORDER_FAILURE
 } from "./ActionTypes";
-import { api } from "../../config/api";
+
 
 export const updateOrderStatus = ({ orderId, orderStatus, jwt }) => {
     return async (dispatch) => {

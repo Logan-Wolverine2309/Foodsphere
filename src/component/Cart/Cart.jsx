@@ -106,7 +106,6 @@ const Cart = () => {
             sx={{ bgcolor: "#1976d2", "&:hover": { bgcolor: "#115293" }, mt: 2 }}
           >
             Add 1 Month @ ₹19
-            
           </Button>
         </div>
 
