@@ -6,7 +6,7 @@ import Home from "../Home/Home";
 import Navbar from "../Navbar/Navbar";
 import PaymentSuccess from "../PaymentSuccess/PaymentsSuccess";
 import RestaurantDetails from "../Restaurant/RestaurantDetails";
-import UserAvatar from "../UserAvatar/UserAvatar";
+// import UserAvatar from "../UserAvatar/UserAvatar";
 import SettingsDrawer from "../SettingsDrawer/Index";
 import Auth from "../Auth/Auth";
 import PaymentPage from "../PaymentSuccess/PaymentPage";
@@ -16,6 +16,7 @@ import ForgotPassword from "../Auth/ForgotPassword";
 import About from "../Navbar/About";
 import Terms from "../Navbar/Terms";
 import Search from "../Navbar/Search";
+import SettingsPage from "../Pages/SettingsPage";
 
 export const CustomerRoute = () => {
   const location = useLocation();
@@ -39,8 +40,9 @@ export const CustomerRoute = () => {
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/terms" element={<Terms/>} />
-        <Route path="/useravatar" element={<UserAvatar />} />
+        {/* <Route path="/useravatar" element={<UserAvatar />} /> */}
         <Route path="/settingsdrawer" element={<SettingsDrawer />} />
+        <Route path="/settingspage" element={<SettingsPage/>}/>
         
       </Routes>
       <Auth/>
