@@ -63,7 +63,6 @@ const ProfileNavigation = ({ open, handleClose }) => {
         {i!== menu.length-1 && <Divider/>}
             </>)}
         </div>
-
       </Drawer>
   );
 };

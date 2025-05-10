@@ -6,7 +6,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Person } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import CartHoverPopup from "../Cart/CartHoverPopup";
-import SettingsDrawer from "../SettingsDrawer/Index";
+
 
 const Navbar = () => {
   const auth = useSelector((store) => store?.auth ?? {}); // fallback to empty object
@@ -61,13 +61,13 @@ const Navbar = () => {
             {location.pathname === "/" && (
               <>
                 <Link to="/search" className={getLinkClass("/search")}>
-                  Search
+                 🔍 Search
                 </Link>
                 <Link to="/about" className={getLinkClass("/about")}>
-                  About Me
+                  👜 SphereConect
                 </Link>
                 <Link to="/offers" className={getLinkClass("/offers")}>
-                  %Offers
+                🏷️ Offers
                 </Link>
                 {/* <SettingsDrawer/> */}
               </>
