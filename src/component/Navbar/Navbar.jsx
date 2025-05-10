@@ -25,7 +25,7 @@ const Navbar = () => {
 
   const handleAvatarClick = () => {
     if (auth?.user?.role === "ROLE_CUSTOMER") {
-      navigate("/");
+      navigate("/my-profile");
     } else {
       navigate("/admin/restaurants");
     }
@@ -34,7 +34,7 @@ const Navbar = () => {
   useEffect(() => {
     if (isUser) {
       setUser(false);
-      navigate("/");
+      navigate("/my-profile");
     }
   }, [isUser]);
 
@@ -69,7 +69,7 @@ const Navbar = () => {
                 <Link to="/offers" className={getLinkClass("/offers")}>
                 🏷️ Offers
                 </Link>
-                {/* <SettingsDrawer/> */}
+                
               </>
             )}
           </div>

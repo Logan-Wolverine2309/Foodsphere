@@ -37,7 +37,7 @@ const ProfileNavigation = ({ open, handleClose }) => {
       dispatch(logout());
       navigate("/");
     } else {
-      navigate(`/settings/${title.toLowerCase()}`);
+      navigate(`/my-profile/${title.toLowerCase()}`);
     }
     if (isSmallScreen && handleClose) {
       handleClose();

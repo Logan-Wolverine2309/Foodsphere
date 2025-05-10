@@ -11,7 +11,8 @@ import Notification from "./Sections/Notification";
 const Profile = () => {
   return (
     <Routes>
-      <Route path="profile" element={<UserProfile />} />
+
+       <Route path="/" element={<UserProfile/>}/>
       <Route path="order" element={<Order />} />
       <Route path="address" element={<Address />} />
       <Route path="favourites" element={<Favourites />} />

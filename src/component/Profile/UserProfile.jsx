@@ -10,11 +10,16 @@ import {
 
 const menuItems = [
   { name: 'Orders', icon: ShoppingBag },
-  { name: 'Swiggy One', icon: Star },
   { name: 'Favourites', icon: HeartIcon },
   { name: 'Payments', icon: CreditCard },
   { name: 'Addresses', icon: MapPin },
-  { name: 'Settings', icon: Cog },
+  { name: 'Notifications', icon: Star },
+  { name: 'Logout', icon: UserCircle },
+  { name: 'Refunds', icon: Star },
+  { name: 'Contact Us', icon: Star },
+  { name: 'Feedback', icon: Star },
+  
+
 ];
 
 function HeartIcon() {
@@ -58,7 +63,7 @@ export default function UserProfile() {
         {activeTab === 'Orders' && (
           <div className="text-center mt-20">
             <p className="text-orange-500 font-semibold mb-2">
-              Your orders with Swiggy will be listed here.
+              Your orders with Foodsphere will be listed here.
             </p>
             <img
               src="https://cdn.dribbble.com/users/1554528/screenshots/3512647/media/0dd55cb6eb443f429f7259f4e2a9d537.png"
