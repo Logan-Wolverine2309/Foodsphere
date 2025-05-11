@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function Refunds() {
+function  Refunds() {
   const [refundStatus, setRefundStatus] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -100,3 +100,4 @@ export default function Refunds() {
     </div>
   );
 }
+export default Refunds;

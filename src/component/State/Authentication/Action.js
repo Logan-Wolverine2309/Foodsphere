@@ -27,7 +27,7 @@ export const registerUser = (reqData) => async (dispatch) => {
       if (data.role === "ROLE_RESTAURANT_OWNER") {
         reqData.navigate("/admin/restaurants");
       } else {
-        reqData.navigate("/"); // <-- change to your actual home path
+        reqData.navigate("/");
       }
   
       console.log("register success", data);
@@ -49,7 +49,7 @@ export const registerUser = (reqData) => async (dispatch) => {
       if (data.role === "ROLE_RESTAURANT_OWNER") {
         reqData.navigate("/admin/restaurants");
       } else {
-        reqData.navigate("/"); // <-- change to your actual home path
+        reqData.navigate("/");
       }
   
       console.log("login success", data);
@@ -91,7 +91,7 @@ export const addToFavorites=({jwt,restaurantId})=>async(dispatch)=>{
         }
        })
 
-        dispatch({type:ADD_TO_FAVOURITE_SUCCESS,payload:data})
+        dispatch({type:ADD_TO_FAVOURITE_SUCCESS,payload:data.jwt})
        console.log("added to favourite",data)
 
     } catch (error){

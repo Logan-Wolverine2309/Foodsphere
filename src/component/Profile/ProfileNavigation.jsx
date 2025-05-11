@@ -15,6 +15,7 @@ import {
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { logout } from '../State/Authentication/Action';
 
 const menu = [
@@ -25,6 +26,7 @@ const menu = [
   { title: "Notification", icon: <NotificationsActiveIcon /> },
   { title: "Settings", icon: <SettingsIcon /> },
   { title: "Logout", icon: <LogoutIcon /> },
+  { title: "DeleteAccount", icon: <DeleteIcon /> },
 ];
 
 const ProfileNavigation = ({ open, handleClose }) => {
@@ -36,7 +38,8 @@ const ProfileNavigation = ({ open, handleClose }) => {
     if (title === "Logout") {
       dispatch(logout());
       navigate("/");
-    } else {
+    }
+     else {
       navigate(`/my-profile/${title.toLowerCase()}`);
     }
     if (isSmallScreen && handleClose) {

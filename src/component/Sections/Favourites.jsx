@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import RestaurantCard from "../../Restaurant/RestaurantCard";
 import { Card, CardContent } from "@mui/material";
+import RestaurantCard from "../Restaurant/RestaurantCard";
 
 const Favourites = () => {
   const auth = useSelector((store) => store.auth); // Safer destructuring

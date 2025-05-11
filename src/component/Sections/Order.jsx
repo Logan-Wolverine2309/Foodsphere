@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import OrderCard from '../../Profile/OrderCard';
-import { getUsersOrder } from '../../State/Order/Action';
+import OrderCard from '../Profile/OrderCard';
+import { getUsersOrder } from '../State/Order/Action';
 
 const Order = () => {
   const dispatch = useDispatch();

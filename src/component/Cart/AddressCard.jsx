@@ -2,7 +2,7 @@ import React from 'react'
 import HomeIcon from '@mui/icons-material/Home';
 import { Button, Card } from '@mui/material';
 
- export const AddressCard = ({item, showButton, handleSelectAddress}) => {
+ const AddressCard = ({item, showButton, handleSelectAddress}) => {
         
   return (
     <Card className="flex gap-5 w-64 p-5">

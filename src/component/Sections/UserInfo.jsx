@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-export default function UserInfo() {
+function UserInfo() {
   const [user, setUser] = useState({
     name: "John Doe",
     email: "john@example.com",
@@ -44,7 +44,7 @@ export default function UserInfo() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 border rounded-xl shadow space-y-6">
+    <div className="max-w mx-auto p-4 border rounded-xl shadow space-y-6">
       {isEditing ? (
         <>
           <h2 className="text-xl font-bold">Edit Your Information</h2>
@@ -131,7 +131,7 @@ export default function UserInfo() {
               )}
             </label>
             <button
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 "
               onClick={handleSave}
             >
               Save
@@ -165,3 +165,4 @@ export default function UserInfo() {
     </div>
   );
 }
+export default UserInfo;

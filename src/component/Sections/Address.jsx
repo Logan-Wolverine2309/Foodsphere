@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button, Card} from '@mui/material';
 import { AddLocation } from '@mui/icons-material';
-import AddressCard from '../../Cart/AddressCard';
+import AddressCard from '../Cart/AddressCard';
+
 
 
 

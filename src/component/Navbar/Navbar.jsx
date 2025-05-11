@@ -6,6 +6,9 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Person } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import CartHoverPopup from "../Cart/CartHoverPopup";
+import { SiGitconnected } from "react-icons/si";
+import { GoSearch } from "react-icons/go";
+import { BiSolidOffer } from "react-icons/bi";
 
 
 const Navbar = () => {
@@ -61,13 +64,22 @@ const Navbar = () => {
             {location.pathname === "/" && (
               <>
                 <Link to="/search" className={getLinkClass("/search")}>
-                 🔍 Search
+                <span className="flex items-center gap-2">
+                 <GoSearch />
+                 Search
+                </span>
                 </Link>
                 <Link to="/about" className={getLinkClass("/about")}>
-                  👜 SphereConect
+                  <span className="flex items-center gap-2">
+                    <SiGitconnected />
+                    SphereConnect
+                  </span>
                 </Link>
                 <Link to="/offers" className={getLinkClass("/offers")}>
-                🏷️ Offers
+                <span className="flex items-center gap-2">
+                <BiSolidOffer />
+                Offers
+                </span>
                 </Link>
                 
               </>
