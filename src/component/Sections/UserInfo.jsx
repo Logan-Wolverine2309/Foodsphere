@@ -1,32 +1,70 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 function UserInfo() {
-  const [user, setUser] = useState({
-    name: "John Doe",
-    email: "john@example.com",
-    phone: "123-456-7890",
-    bio: "A passionate developer who loves to build web apps.",
-    profilePicture: "",
-    address: "123 Main Street, Springfield",
-    landmark: "Near Central Park",
-  });
-
-  const [tempUser, setTempUser] = useState({ ...user });
-  const [isEditing, setIsEditing] = useState(true);
+  const [user, setUser] = useState(null);
+  const [tempUser, setTempUser] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const fileInputRef = useRef(null);
+
+  // Replace with your real Cloudinary settings
+  const cloud_name = "dcconejjp";
+  const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
+  const UPLOAD_PRESET ="FoodSphere";
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user_profile");
+    if (storedUser) {
+      const parsed = JSON.parse(storedUser);
+      setUser(parsed);
+      setTempUser(parsed);
+      setPreviewImage(parsed.profilePicture || "");
+    } else {
+      const emptyUser = {
+        name: "",
+        email: "",
+        phone: "",
+        bio: "",
+        profilePicture: "",
+        address: "",
+        landmark: "",
+      };
+      setUser(emptyUser);
+      setTempUser(emptyUser);
+      setIsEditing(true);
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTempUser((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setPreviewImage(imageUrl);
-      setTempUser((prev) => ({ ...prev, profilePicture: imageUrl }));
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", UPLOAD_PRESET);
+
+    try {
+      const res = await fetch(CLOUDINARY_URL, {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (data.secure_url) {
+        setPreviewImage(data.secure_url);
+        setTempUser((prev) => ({ ...prev, profilePicture: data.secure_url }));
+      } else {
+        alert("Image upload failed. Please check your Cloudinary preset.");
+        console.error("Upload failed:", data);
+      }
+    } catch (error) {
+      alert("Upload error.");
+      console.error("Error uploading:", error);
     }
   };
 
@@ -35,83 +73,69 @@ function UserInfo() {
   };
 
   const handleSave = () => {
-    if (!tempUser.address || !tempUser.landmark) {
-      alert("Please fill out all required fields including address and landmark.");
+    if (!tempUser.name || !tempUser.email || !tempUser.address || !tempUser.landmark) {
+      alert("Please fill in required fields: name, email, address, landmark.");
       return;
     }
-    setUser({ ...tempUser });
+    setUser(tempUser);
+    localStorage.setItem("user_profile", JSON.stringify(tempUser));
     setIsEditing(false);
   };
 
+  const handleEdit = () => {
+    setTempUser(user);
+    setPreviewImage(user.profilePicture);
+    setIsEditing(true);
+  };
+
+  const handleLogout = () => {
+    setIsEditing(false);
+    setTempUser(user);
+    alert("Logged out (data is still saved)");
+  };
+
+  if (!tempUser) return <p>Loading...</p>;
+
   return (
-    <div className="max-w mx-auto p-4 border rounded-xl shadow space-y-6">
+    <div className="max-w mx-auto p-6 border rounded-xl shadow space-y-6 bg-black text-white">
       {isEditing ? (
         <>
-          <h2 className="text-xl font-bold">Edit Your Information</h2>
+          <h2 className="text-2xl font-bold text-black-800">Edit Your Information</h2>
           <div className="space-y-4">
-            <label className="block">
-              Name:
-              <input
-                name="name"
-                className="mt-1 block w-full p-2 rounded border"
-                value={tempUser.name}
-                onChange={handleChange}
-              />
-            </label>
-            <label className="block">
-              Email:
-              <input
-                name="email"
-                className="mt-1 block w-full p-2 rounded border"
-                value={tempUser.email}
-                onChange={handleChange}
-              />
-            </label>
-            <label className="block">
-              Phone Number:
-              <input
-                name="phone"
-                className="mt-1 block w-full p-2 rounded border"
-                value={tempUser.phone}
-                onChange={handleChange}
-              />
-            </label>
-            <label className="block">
+            {[
+              { label: "Name", name: "name" },
+              { label: "Email", name: "email" },
+              { label: "Phone Number", name: "phone" },
+              { label: "Address", name: "address" },
+              { label: "Landmark", name: "landmark" },
+            ].map(({ label, name }) => (
+              <label key={name} className="block text-black-700">
+                {label}:
+                <input
+                  name={name}
+                  className="mt-1 block w-full p-2 rounded border border-black-300"
+                  value={tempUser[name]}
+                  onChange={handleChange}
+                />
+              </label>
+            ))}
+            <label className="block text-black-700">
               Bio:
               <textarea
                 name="bio"
-                className="mt-1 block w-full p-2 rounded border"
+                className="mt-1 block w-full p-2 rounded border border-black-300"
                 rows={3}
                 value={tempUser.bio}
                 onChange={handleChange}
               />
             </label>
-            <label className="block">
-              Address:
-              <input
-                name="address"
-                className="mt-1 block w-full p-2 rounded border"
-                value={tempUser.address}
-                onChange={handleChange}
-                required
-              />
-            </label>
-            <label className="block">
-              Landmark:
-              <input
-                name="landmark"
-                className="mt-1 block w-full p-2 rounded border"
-                value={tempUser.landmark}
-                onChange={handleChange}
-                required
-              />
-            </label>
-            <label className="block">
-              Profile Picture:
+
+            <div>
+              <span className="block text-black-700 mb-1">Profile Picture:</span>
               <button
                 type="button"
                 onClick={openFilePicker}
-                className="mt-1 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
               >
                 Choose Picture
               </button>
@@ -129,9 +153,10 @@ function UserInfo() {
                   className="mt-2 w-24 h-24 object-cover rounded-full"
                 />
               )}
-            </label>
+            </div>
+
             <button
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 "
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
               onClick={handleSave}
             >
               Save
@@ -140,7 +165,7 @@ function UserInfo() {
         </>
       ) : (
         <div className="space-y-4">
-          <h2 className="text-xl font-bold">Your Profile</h2>
+          <h2 className="text-2xl font-bold text-black-800">Your Profile</h2>
           {user.profilePicture && (
             <img
               src={user.profilePicture}
@@ -154,15 +179,18 @@ function UserInfo() {
           <p><strong>Bio:</strong> {user.bio}</p>
           <p><strong>Address:</strong> {user.address}</p>
           <p><strong>Landmark:</strong> {user.landmark}</p>
-          <button
-            className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
-            onClick={() => setIsEditing(true)}
-          >
-            Edit
-          </button>
+          <div className="space-x-4">
+            <button
+              className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-black-700"
+              onClick={handleEdit}
+            >
+              Edit
+            </button>
+          </div>
         </div>
       )}
     </div>
   );
 }
+
 export default UserInfo;

@@ -1,15 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import FeedbackIcon from '@mui/icons-material/Feedback';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import DeleteIcon from '@mui/icons-material/Delete';
-import LogoutIcon from '@mui/icons-material/Logout';
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import FeedbackIcon from "@mui/icons-material/Feedback";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import DeleteIcon from "@mui/icons-material/Delete";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const menuItems = [
   { title: "Orders", icon: <ShoppingBagIcon />, path: "order" },
@@ -19,29 +17,12 @@ const menuItems = [
   { title: "Refunds", icon: <CurrencyRupeeIcon />, path: "refunds" },
   { title: "Feedback", icon: <FeedbackIcon />, path: "feedback" },
   { title: "Edit Profile", icon: <AccountCircleIcon />, path: "user-info" },
-  { title: "Logout", icon: <LogoutIcon/>, path: "logout" },
+  { title: "Logout", icon: <LogoutIcon />, path: "logout" },
   { title: "DeleteAccount", icon: <DeleteIcon />, path: "delete-account" },
 ];
-
-export default function UserProfile() {
-  const user = useSelector((state) => state.auth.user);
+function UserProfile() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [formData, setFormData] = useState({
-    // name: '',
-    // email: '',
-    // phone: '',
-  });
-
-  // useEffect(() => {
-  //   if (user) {
-  //     setFormData({
-  //       name: user.name || '',
-  //       email: user.email || '',
-  //       phone: user.phone || '',
-  //     });
-  //   }
-  // }, [user]);
 
   return (
     <div className="min-h-screen bg-black flex">
@@ -60,8 +41,8 @@ export default function UserProfile() {
               onClick={() => navigate(item.path)}
               className={`flex items-center space-x-3 px-4 py-2 rounded cursor-pointer ${
                 location.pathname.includes(item.path)
-                  ? 'bg-white text-black font-semibold'
-                  : 'text-gray-800 hover:bg-white'
+                  ? "bg-white text-black font-semibold"
+                  : "text-gray-800 hover:bg-white"
               }`}
             >
               {item.icon}
@@ -70,7 +51,6 @@ export default function UserProfile() {
           ))}
         </div>
       </div>
-
       {/* Main content area */}
       <div className="flex-1 bg-black p-6 overflow-y-auto">
         <Outlet />
@@ -78,3 +58,4 @@ export default function UserProfile() {
     </div>
   );
 }
+export default UserProfile;

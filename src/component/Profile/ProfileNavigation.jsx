@@ -1,73 +1,44 @@
-import React from 'react';
-import {
-  Divider,
-  Drawer,
-  useMediaQuery,
-} from '@mui/material';
-import {
-  ShoppingBag as ShoppingBagIcon,
-  Favorite as FavoriteIcon,
-  Settings as SettingsIcon,
-  NotificationsActive as NotificationsActiveIcon,
-  MonetizationOn as MonetizationOnIcon,
-  Logout as LogoutIcon,
-  AddReaction,
-} from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { logout } from '../State/Authentication/Action';
+function DeleteAccount() {
+  const [showConfirmModal, setShowConfirmModal] = useState(true);
+  const navigate = useNavigate(); // ✅ create navigate function
 
-const menu = [
-  { title: "Order", icon: <ShoppingBagIcon /> },
-  { title: "Favorites", icon: <FavoriteIcon /> },
-  { title: "Address", icon: <AddReaction /> },
-  { title: "Refunds", icon: <MonetizationOnIcon /> },
-  { title: "Notification", icon: <NotificationsActiveIcon /> },
-  { title: "Settings", icon: <SettingsIcon /> },
-  { title: "Logout", icon: <LogoutIcon /> },
-  { title: "DeleteAccount", icon: <DeleteIcon /> },
-];
-
-const ProfileNavigation = ({ open, handleClose }) => {
-  const isSmallScreen = useMediaQuery('(max-width:900px)');
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const handleNavigate = ({ title }) => {
-    if (title === "Logout") {
-      dispatch(logout());
-      navigate("/");
-    }
-     else {
-      navigate(`/my-profile/${title.toLowerCase()}`);
-    }
-    if (isSmallScreen && handleClose) {
-      handleClose();
-    }
+  const confirmDelete = () => {
+    alert("Account deleted successfully!"); // ✅ replace with actual delete logic
+    setShowConfirmModal(false);
+    navigate("/login"); // ✅ redirect to login page after deletion
   };
 
   return (
-    <Drawer 
-      variant={isSmallScreen ? "temporary" : "permanent"} 
-      onClose={handleClose} 
-      open={isSmallScreen ? open : true} 
-      anchor="left"
-      sx={{ zIndex: 1, position:"sticky" }} >
-        
-        <div className="w-[50vw] lg:w-[20vw] h-[100vh] flex flex-col justify-center text-xl gap-8 pt-16">
-           
-            {menu.map((item,i)=><>
-           
-            <div onClick={()=>handleNavigate(item)} className="px-5 flex items-center space-x-5 cursor-pointer">
-                {item.icon}
-                <span>{item.title}</span>
-            </div>
-        {i!== menu.length-1 && <Divider/>}
-            </>)}
-        </div>
-      </Drawer>
-  );
-};
+    <div>
+      {showConfirmModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="bg-white dark:bg-gray-900 text-gray-800 dark:text-white p-6 rounded-xl shadow-2xl w-full max-w-md space-y-4 animate-fade-in">
+            <h2 className="text-xl font-bold">Confirm Account Deletion</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              Are you absolutely sure you want to delete your account? This action is irreversible.
+            </p>
 
-export default ProfileNavigation;
+            <div className="flex justify-end gap-3 pt-4">
+              <button
+                onClick={() => setShowConfirmModal(false)}
+                className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

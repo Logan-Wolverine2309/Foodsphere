@@ -14,35 +14,38 @@ import About from "../Navbar/About";
 import Terms from "../Navbar/Terms";
 import Search from "../Navbar/Search";
 import Profile from "../Profile/Profile";
+import LoginForm from "../Auth/LoginForm";
+import RegisterForm from "../Auth/RegisterForm";
 
 export const CustomerRoute = () => {
   const location = useLocation();
 
   return (
     <div>
-      
-
+      {/* Render Navbar for all pages */}
       <Navbar />
+
       <Routes>
+        {/* Main Routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/account/:register" element={<Home />} />
         <Route path="/resturant/city/:title/:id" element={<RestaurantDetails />} />
-        <Route path="/search" element={<Search/>} />
+        <Route path="/search" element={<Search />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
-        <Route path="/help" element={<Help/>} />
+        <Route path="/help" element={<Help />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/offers" element={<Offers />} />
         <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/my-profile/*" element={<Profile />} />
+
+        {/* Auth Routes */}
+        <Route path="/loginform" element={<LoginForm />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/terms" element={<Terms/>} />
-        <Route path="/my-profile/*" element={<Profile/>} />
-        
+        <Route path="/registerform" element={<RegisterForm />} /> 
       </Routes>
-      <Auth/>
     </div>
   );
 };
-
-
+export default CustomerRoute;
