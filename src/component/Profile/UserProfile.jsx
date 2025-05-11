@@ -8,16 +8,20 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LogoutIcon from "@mui/icons-material/Logout";
+import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded';
+import PrivacyTipRoundedIcon from '@mui/icons-material/PrivacyTipRounded';
 
 const menuItems = [
   { title: "Orders", icon: <ShoppingBagIcon />, path: "order" },
   { title: "Favourites", icon: <FavoriteIcon />, path: "favourites" },
   { title: "Addresses", icon: <AddLocationAltIcon />, path: "address" },
+  { title: "Edit Profile", icon: <AccountCircleIcon />, path: "user-info" },
   { title: "Notifications", icon: <NotificationsIcon />, path: "notification" },
+  { title: "Subscription", icon: <AttachMoneyRoundedIcon />, path: "subscription" },
   { title: "Refunds", icon: <CurrencyRupeeIcon />, path: "refunds" },
   { title: "Feedback", icon: <FeedbackIcon />, path: "feedback" },
-  { title: "Edit Profile", icon: <AccountCircleIcon />, path: "user-info" },
-  { title: "Logout", icon: <LogoutIcon />, path: "logout" },
+  { title: "Privacy", icon: < PrivacyTipRoundedIcon />, path: "privacy" },
+  { title: "Logout", icon: <LogoutIcon />, path: "/" },
   { title: "DeleteAccount", icon: <DeleteIcon />, path: "delete-account" },
 ];
 function UserProfile() {

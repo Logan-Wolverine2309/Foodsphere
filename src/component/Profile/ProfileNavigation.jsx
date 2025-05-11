@@ -16,6 +16,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { logout } from '../State/Authentication/Action';
+import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded';
+import PrivacyTipRoundedIcon from '@mui/icons-material/PrivacyTipRounded';
 
 const menu = [
   { title: "Order", icon: <ShoppingBagIcon /> },
@@ -23,9 +25,10 @@ const menu = [
   { title: "Address", icon: <AddReaction /> },
   { title: "Refunds", icon: <MonetizationOnIcon /> },
   { title: "Notification", icon: <NotificationsActiveIcon /> },
-  { title: "Settings", icon: <SettingsIcon /> },
+  { title: "Privacy", icon: <PrivacyTipRoundedIcon  /> },
   { title: "Logout", icon: <LogoutIcon /> },
   { title: "DeleteAccount", icon: <DeleteIcon /> },
+  { title: "Subscription", icon: < AttachMoneyRoundedIcon/> },
 ];
 
 const ProfileNavigation = ({ open, handleClose }) => {
