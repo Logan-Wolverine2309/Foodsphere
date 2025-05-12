@@ -1,4 +1,7 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../State/Authentication/Action";
+
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
@@ -8,41 +11,38 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LogoutIcon from "@mui/icons-material/Logout";
-import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded';
-import PrivacyTipRoundedIcon from '@mui/icons-material/PrivacyTipRounded';
 
-const menuItems = [
-  { title: "Orders", icon: <ShoppingBagIcon />, path: "order" },
-  { title: "Favourites", icon: <FavoriteIcon />, path: "favourites" },
-  { title: "Addresses", icon: <AddLocationAltIcon />, path: "address" },
-  { title: "Edit Profile", icon: <AccountCircleIcon />, path: "user-info" },
-  { title: "Notifications", icon: <NotificationsIcon />, path: "notification" },
-  { title: "Subscription", icon: <AttachMoneyRoundedIcon />, path: "subscription" },
-  { title: "Refunds", icon: <CurrencyRupeeIcon />, path: "refunds" },
-  { title: "Feedback", icon: <FeedbackIcon />, path: "feedback" },
-  { title: "Privacy", icon: < PrivacyTipRoundedIcon />, path: "privacy" },
-  { title: "Logout", icon: <LogoutIcon />, path: "/" },
-  { title: "DeleteAccount", icon: <DeleteIcon />, path: "delete-account" },
-];
 function UserProfile() {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
+  const menuItems = [
+    { title: "Orders", icon: <ShoppingBagIcon />, path: "order" },
+    { title: "Favourites", icon: <FavoriteIcon />, path: "favourites" },
+    { title: "Addresses", icon: <AddLocationAltIcon />, path: "address" },
+    { title: "Notifications", icon: <NotificationsIcon />, path: "notification" },
+    { title: "Refunds", icon: <CurrencyRupeeIcon />, path: "refunds" },
+    { title: "Feedback", icon: <FeedbackIcon />, path: "feedback" },
+    { title: "Edit Profile", icon: <AccountCircleIcon />, path: "user-info" },
+    { title: "Delete Account", icon: <DeleteIcon />, path: "delete-account" },
+    { title: "Logout", icon: <LogoutIcon />, action: handleLogout },
+  ];
 
   return (
     <div className="min-h-screen bg-black flex">
       {/* Sidebar */}
       <div className="w-64 bg-gray-100 p-6">
-        <div className="mb-8">
-          {/* <h1 className="text-2xl font-bold text-gray-900">{formData.name}</h1>
-          <p className="text-sm text-gray-700">
-            {formData.phone} • {formData.email}
-          </p> */}
-        </div>
         <div className="space-y-2">
           {menuItems.map((item) => (
             <div
               key={item.title}
-              onClick={() => navigate(item.path)}
+              onClick={() => item.action ? item.action() : navigate(item.path)}
               className={`flex items-center space-x-3 px-4 py-2 rounded cursor-pointer ${
                 location.pathname.includes(item.path)
                   ? "bg-white text-black font-semibold"
@@ -55,6 +55,7 @@ function UserProfile() {
           ))}
         </div>
       </div>
+
       {/* Main content area */}
       <div className="flex-1 bg-black p-6 overflow-y-auto">
         <Outlet />
@@ -62,4 +63,5 @@ function UserProfile() {
     </div>
   );
 }
+
 export default UserProfile;
