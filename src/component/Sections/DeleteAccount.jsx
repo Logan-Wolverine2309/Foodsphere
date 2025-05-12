@@ -6,7 +6,6 @@ function DeleteAccount() {
   const navigate = useNavigate(); // ✅ create navigate function
 
   const confirmDelete = () => {
-    alert("Account deleted successfully!"); // ✅ replace with actual delete logic
     setShowConfirmModal(false);
     navigate("/"); // ✅ redirect to login form page
   };
